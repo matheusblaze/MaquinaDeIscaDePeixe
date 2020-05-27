@@ -1,0 +1,57 @@
+***MOTOR***
+
+  digitalWrite(dir1Pin, HIGH);
+  digitalWrite(en1Pin, HIGH);
+  delay(100);
+  digitalWrite(dir1Pin, LOW);
+  digitalWrite(en1Pin, LOW);
+  analogWrite(step1Pin, 128);
+  delay(100);
+  digitalWrite(dir1Pin, HIGH);
+  digitalWrite(en1Pin, LOW);
+  analogWrite(step1Pin, 128);
+  delay(100);
+  digitalWrite(dir1Pin, HIGH);
+  digitalWrite(en1Pin, HIGH);
+
+***CILINDROS***
+     
+    digitalWrite(R1pin, LOW);
+    delay(1000);
+    digitalWrite(R1pin, HIGH);
+    delay(500);
+    digitalWrite(R2pin, LOW);
+    delay(1000);
+    digitalWrite(R2pin, HIGH);
+    delay(1000);
+    digitalWrite(R3pin, LOW);
+    delay(1000);
+    digitalWrite(R3pin, HIGH);
+    delay(1000);
+    digitalWrite(R4pin, LOW);
+    delay(1000);
+    digitalWrite(R4pin, HIGH);
+    delay(1000);
+    digitalWrite(R5pin, LOW);
+    delay(500);
+    digitalWrite(R5pin, HIGH);
+    delay(1000);
+
+***destravar motor***
+void destravaMotor()
+{
+  digitalWrite(dir1Pin, HIGH);
+  digitalWrite(en1Pin, HIGH);
+  delay(100);
+  digitalWrite(dir1Pin, LOW);
+  digitalWrite(en1Pin, LOW);
+  analogWrite(step1Pin, 128);
+  delay(100);
+  digitalWrite(dir1Pin, HIGH);
+  digitalWrite(en1Pin, LOW);
+  analogWrite(step1Pin, 128);
+  delay(100);
+  digitalWrite(dir1Pin, HIGH);
+  digitalWrite(en1Pin, HIGH);
+  return;
+}

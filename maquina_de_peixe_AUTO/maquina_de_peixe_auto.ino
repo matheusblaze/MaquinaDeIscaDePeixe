@@ -132,21 +132,6 @@ void setup()
   msg_flg = 1;
   delay(ESPERAINICIO);
   TCCR4B = (TCCR4B & 0xF8) | 0x03; //divisor do pin8
-  /*
-  digitalWrite(dir1Pin, HIGH);
-  digitalWrite(en1Pin, HIGH);
-  delay(100);
-  digitalWrite(dir1Pin, LOW);
-  digitalWrite(en1Pin, LOW);
-  analogWrite(step1Pin, 128);
-  delay(100);
-  digitalWrite(dir1Pin, HIGH);
-  digitalWrite(en1Pin, LOW);
-  analogWrite(step1Pin, 128);
-  delay(100);
-  digitalWrite(dir1Pin, HIGH);
-  digitalWrite(en1Pin, HIGH);
-  */
 }
 
 void loop()
@@ -170,28 +155,6 @@ void state_machine_run()
         lcd.print("extrator");
         msg_flg = 0;
       }
-      /*
-    digitalWrite(R1pin, LOW);
-    delay(1000);
-        digitalWrite(R1pin, HIGH);
-    delay(500);
-    digitalWrite(R2pin, LOW);
-    delay(1000);
-        digitalWrite(R2pin, HIGH);
-    delay(1000);
-    digitalWrite(R3pin, LOW);
-    delay(1000);
-        digitalWrite(R3pin, HIGH);
-    delay(1000);
-    digitalWrite(R4pin, LOW);
-    delay(1000);
-        digitalWrite(R4pin, HIGH);
-    delay(1000);
-    digitalWrite(R5pin, LOW);
-    delay(500);
-        digitalWrite(R5pin, HIGH);
-    delay(1000);
-     */
     if ((botoes & 0b00100000) == 0)
       {
         cilindroExtratorRetorna();
@@ -404,7 +367,6 @@ void state_machine_run()
       leinput();
       if ((botoes & 0b001) == 0)
       {
-//        TCCR4B = (TCCR4B & 0xF8) | 0x05;
         nema32retorna();
       }
       else
@@ -458,7 +420,6 @@ void state_machine_run()
       leinput();
       if ((botoes & 0b100) == 0)
       {
-//        TCCR4B = (TCCR4B & 0xF8) | 0x04;
         nema32avanca();
       }
       else
@@ -706,22 +667,4 @@ void mudaVelocidade(int velocidade)
       TCCR4B = (TCCR4B & 0xF8) | 0x03; //divisor do pin8
       break;
   }
-}
-
-void destravaMotor()
-{
-  digitalWrite(dir1Pin, HIGH);
-  digitalWrite(en1Pin, HIGH);
-  delay(100);
-  digitalWrite(dir1Pin, LOW);
-  digitalWrite(en1Pin, LOW);
-  analogWrite(step1Pin, 128);
-  delay(100);
-  digitalWrite(dir1Pin, HIGH);
-  digitalWrite(en1Pin, LOW);
-  analogWrite(step1Pin, 128);
-  delay(100);
-  digitalWrite(dir1Pin, HIGH);
-  digitalWrite(en1Pin, HIGH);
-  return;
 }
