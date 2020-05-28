@@ -230,7 +230,6 @@ void state_machine_run()
       leinput();
       if ((botoes & 0b10) == 0)
       {
-        mudaVelocidade(MOTOR32FAST);
         nema32retorna();
       }
       else
