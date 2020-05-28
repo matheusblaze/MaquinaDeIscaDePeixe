@@ -62,7 +62,6 @@ int i=0;
 int j=0;
 
 void state_machine_run(uint8_t botoes);
-void mudaVelocidade(int velocidade);
 void lebotoes();
 void nema32para();
 void nema32avanca();
@@ -74,7 +73,6 @@ void cilindroExtratorPara();
 void cilindroPrensaAvanca();
 void cilindroPrensaRetorna();
 void cilindroPrensaPara();
-void destravaMotor();
 
 LiquidCrystal_I2C lcd(0x27, 16, 2); // Criando um LCD de 16x2 no endereço 0x27
 
@@ -87,9 +85,6 @@ void setup()
 
   lcd.init();                 // Inicializando o LCD
   lcd.backlight();            // Ligando o BackLight do LCD
-  // lcd.print("BAAAA");
-  // Serial.println("Até a linha 62 foi");
-  //myStepper.setSpeed(60);
 
   pinMode(53, INPUT);                                 //Botão1
   pinMode(51, INPUT);                                 //Sensor1
@@ -104,8 +99,6 @@ void setup()
   pinMode(33, OUTPUT);                                //RELE2 CIL1 volta
   pinMode(35, OUTPUT);                                //RELE3 Cil2 avança
   pinMode(37, OUTPUT);                                //RELE4 Cil2 volta
-  
-//  pinMode(29, INPUT);                                 //Pedal 1
   
   pinMode(25, OUTPUT);                                //RELE 5 MASTER
 
@@ -205,13 +198,11 @@ void state_machine_run()
         lcd.setCursor(0, 1);
         lcd.print("Extrator ");
         lcd.print(qtd);
-        //Serial.println("Estado S1");
         msg_flg = 0;
       }
       leinput();
       if ((botoes & 0b100) == 0)
       {
-        //mudaVelocidade(MOTOR32SLOW);
         nema32avanca();
       }
       else
@@ -340,7 +331,6 @@ void state_machine_run()
       {
         cilindroExtratorPara();
       }
-      //delay(800);
       leinput();
       if (botoes == 0b00101010)
       {
@@ -397,7 +387,6 @@ void state_machine_run()
       lcd.setCursor(0, 1);
       lcd.print("Produzidos ");
       lcd.print(qtd);
-      //delay(2000);
       leinput();
       if (botoes == 0b00101001)
       {
@@ -472,7 +461,6 @@ void state_machine_run()
         cilindroPrensaPara();
       }
       if ((botoes & 0b00010000) != 0)
-      //if (botoes == 0b00110100)
       {
         cilindroPrensaPara();
         delay(ESPERADAPRENSA);
@@ -502,7 +490,6 @@ void state_machine_run()
         cilindroPrensaPara();
       }
       if ((botoes & 0b00001000) != 0)
-      //if (botoes == 0b00101100)
       {
         cilindroPrensaPara();
         state = VAIPARAEXTRATOR;
@@ -538,8 +525,6 @@ void leinput()
 
 void nema32avanca()
 {
-  //lcd.clear();
-  //lcd.print("\n VAI");
   digitalWrite(dir1Pin, LOW);
   digitalWrite(en1Pin, LOW);
   analogWrite(step1Pin, 128);
@@ -547,16 +532,12 @@ void nema32avanca()
 
 void nema32para()
 {
-  //lcd.clear();
-  //lcd.print("PARA");
   digitalWrite(en1Pin, LOW);
   analogWrite(step1Pin, 0);
 }
 
 void nema32retorna()
 {
-  //lcd.clear();
-  //lcd.print("VOLTA");
   digitalWrite(dir1Pin, HIGH);
   digitalWrite(en1Pin, LOW);
   analogWrite(step1Pin, 128);
@@ -568,12 +549,10 @@ void nema17limpa()
   digitalWrite(en2Pin, LOW);
   analogWrite(step2Pin, 128);
   delay(3500);
-  //lcd.print("->");
   digitalWrite(dir2Pin, LOW);
   digitalWrite(en2Pin, LOW);
   analogWrite(step2Pin, 128);
   delay(3000);
-  //lcd.print("<-");
   digitalWrite(dir2Pin, HIGH);
   digitalWrite(en2Pin, HIGH);
   analogWrite(step2Pin, 0);
@@ -581,8 +560,6 @@ void nema17limpa()
 
 void cilindroExtratorAvanca()
 {
-  //lcd.clear();
-  //lcd.print("TIRANDO PASTA");
   digitalWrite(R5pin, HIGH);
   delay(250);
   digitalWrite(R1pin, HIGH);
@@ -594,8 +571,6 @@ void cilindroExtratorAvanca()
 
 void cilindroExtratorRetorna()
 {
-  //lcd.clear();
-  //lcd.print("SAINDO DO CAMINHO");
   digitalWrite(R5pin, HIGH);
   delay(250);
   digitalWrite(R1pin, HIGH);
@@ -607,8 +582,6 @@ void cilindroExtratorRetorna()
 
 void cilindroExtratorPara()
 {
-  //lcd.clear();
-  //lcd.print("PAREI");
   digitalWrite(R5pin, LOW);
   delay(250);
   digitalWrite(R1pin, HIGH);
@@ -620,8 +593,6 @@ void cilindroExtratorPara()
 
 void cilindroPrensaAvanca()
 {
-  //lcd.clear();
-  //lcd.print("OPERAÇÃO");
   digitalWrite(R5pin, HIGH);
   delay(250);
   digitalWrite(R1pin, LOW);
@@ -633,8 +604,6 @@ void cilindroPrensaAvanca()
 
 void cilindroPrensaRetorna()
 {
-  //lcd.clear();
-  //lcd.print("OPERAÇÃO");
   digitalWrite(R5pin, HIGH);
   delay(250);
   digitalWrite(R1pin, HIGH);
@@ -646,8 +615,6 @@ void cilindroPrensaRetorna()
 
 void cilindroPrensaPara()
 {
-  //lcd.clear();
-  //lcd.print("OPERAÇÃO");
   digitalWrite(R5pin, LOW);
   delay(250);
   digitalWrite(R1pin, HIGH);
@@ -655,16 +622,4 @@ void cilindroPrensaPara()
   digitalWrite(R3pin, HIGH);
   digitalWrite(R4pin, HIGH);
   delayMicroseconds(100);
-}
-void mudaVelocidade(int velocidade)
-{
-  switch (velocidade)
-  {
-    case MOTOR32FAST:
-      TCCR4B = (TCCR4B & 0xF8) | 0x03; //divisor do pin8
-      break;
-    case MOTOR32SLOW:
-      TCCR4B = (TCCR4B & 0xF8) | 0x03; //divisor do pin8
-      break;
-  }
 }
